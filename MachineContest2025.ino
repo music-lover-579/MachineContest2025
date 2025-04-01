@@ -1,3 +1,9 @@
+/*
+ * Main program for our machine
+ */
+
+#include "Globals.h"
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
