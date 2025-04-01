@@ -8,6 +8,6 @@
 #include "PS2X_lib.h"
 #include "Globals.h"
 
-extern PS2X ps2x; // create PS2 Controller Class
+void MoveWheels(PS2X& ps2x);
 
 #endif // _CONTROLLER_H_
