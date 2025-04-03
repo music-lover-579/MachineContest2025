@@ -78,33 +78,33 @@ GNU General Public License for more details.
 //#define PS2X_COM_DEBUG
 
 #ifndef PS2X_lib_h
-  #define PS2X_lib_h
+	#define PS2X_lib_h
 
 #if ARDUINO > 22
-  #include "Arduino.h"
+	#include "Arduino.h"
 #else
-  #include "WProgram.h"
+	#include "WProgram.h"
 #endif
 
 #include <math.h>
 #include <stdio.h>
 #include <stdint.h>
 #ifdef __AVR__
-  // AVR
-  #include <avr/io.h>
-  #define CTRL_CLK        4
-  #define CTRL_BYTE_DELAY 3
+	// AVR
+	#include <avr/io.h>
+	#define CTRL_CLK        4
+	#define CTRL_BYTE_DELAY 3
 #else
 #ifdef ESP8266
-  #define CTRL_CLK        5
-  #define CTRL_CLK_HIGH   5
-  #define CTRL_BYTE_DELAY 18
+	#define CTRL_CLK        5
+	#define CTRL_CLK_HIGH   5
+	#define CTRL_BYTE_DELAY 18
 #else
-  // Pic32...
-  #include <pins_arduino.h>
-  #define CTRL_CLK        5
-  #define CTRL_CLK_HIGH   5
-  #define CTRL_BYTE_DELAY 4
+	// Pic32...
+	#include <pins_arduino.h>
+	#define CTRL_CLK        5
+	#define CTRL_CLK_HIGH   5
+	#define CTRL_BYTE_DELAY 4
 #endif 
 #endif
 
@@ -173,76 +173,76 @@ GNU General Public License for more details.
 #define TOG(x,y) (x^=(1<<y))
 
 class PS2X {
-  public:
-    boolean Button(uint16_t);                //will be TRUE if button is being pressed
-    unsigned int ButtonDataByte();
-    boolean NewButtonState();
-    boolean NewButtonState(unsigned int);    //will be TRUE if button was JUST pressed OR released
-    boolean ButtonPressed(unsigned int);     //will be TRUE if button was JUST pressed
-    boolean ButtonReleased(unsigned int);    //will be TRUE if button was JUST released
-    void read_gamepad();
-    boolean  read_gamepad(boolean, byte);
-    byte readType();
-    byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t);
-    byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t, bool, bool);
-    void enableRumble();
-    bool enablePressures();
-    byte Analog(byte);
-    void reconfig_gamepad();
+	public:
+		boolean Button(uint16_t);                //will be TRUE if button is being pressed
+		unsigned int ButtonDataByte();
+		boolean NewButtonState();
+		boolean NewButtonState(unsigned int);    //will be TRUE if button was JUST pressed OR released
+		boolean ButtonPressed(unsigned int);     //will be TRUE if button was JUST pressed
+		boolean ButtonReleased(unsigned int);    //will be TRUE if button was JUST released
+		void read_gamepad();
+		boolean  read_gamepad(boolean, byte);
+		byte readType();
+		byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t);
+		byte config_gamepad(uint8_t, uint8_t, uint8_t, uint8_t, bool, bool);
+		void enableRumble();
+		bool enablePressures();
+		byte Analog(byte);
+		void reconfig_gamepad();
 
-  private:
-    inline void CLK_SET(void);
-    inline void CLK_CLR(void);
-    inline void CMD_SET(void);
-    inline void CMD_CLR(void);
-    inline void ATT_SET(void);
-    inline void ATT_CLR(void);
-    inline bool DAT_CHK(void);
-    
-    unsigned char _gamepad_shiftinout (char);
-    unsigned char PS2data[21];
-    void sendCommandString(byte*, byte);
-    unsigned char i;
-    unsigned int last_buttons;
-    unsigned int buttons;
+	private:
+		inline void CLK_SET(void);
+		inline void CLK_CLR(void);
+		inline void CMD_SET(void);
+		inline void CMD_CLR(void);
+		inline void ATT_SET(void);
+		inline void ATT_CLR(void);
+		inline bool DAT_CHK(void);
+		
+		unsigned char _gamepad_shiftinout (char);
+		unsigned char PS2data[21];
+		void sendCommandString(byte*, byte);
+		unsigned char i;
+		unsigned int last_buttons;
+		unsigned int buttons;
 	
-    #ifdef __AVR__
-      uint8_t maskToBitNum(uint8_t);
-      uint8_t _clk_mask; 
-      volatile uint8_t *_clk_oreg;
-      uint8_t _cmd_mask; 
-      volatile uint8_t *_cmd_oreg;
-      uint8_t _att_mask; 
-      volatile uint8_t *_att_oreg;
-      uint8_t _dat_mask; 
-      volatile uint8_t *_dat_ireg;
-    #else
-    #ifdef ESP8266
-      int _clk_pin;
-      int _cmd_pin;
-      int _att_pin;
-      int _dat_pin;
-    #else
-      uint8_t maskToBitNum(uint8_t);
-      uint16_t _clk_mask; 
-      volatile uint32_t *_clk_lport_set;
-      volatile uint32_t *_clk_lport_clr;
-      uint16_t _cmd_mask; 
-      volatile uint32_t *_cmd_lport_set;
-      volatile uint32_t *_cmd_lport_clr;
-      uint16_t _att_mask; 
-      volatile uint32_t *_att_lport_set;
-      volatile uint32_t *_att_lport_clr;
-      uint16_t _dat_mask; 
-      volatile uint32_t *_dat_lport;
-    #endif
-    #endif
+		#ifdef __AVR__
+			uint8_t maskToBitNum(uint8_t);
+			uint8_t _clk_mask; 
+			volatile uint8_t *_clk_oreg;
+			uint8_t _cmd_mask; 
+			volatile uint8_t *_cmd_oreg;
+			uint8_t _att_mask; 
+			volatile uint8_t *_att_oreg;
+			uint8_t _dat_mask; 
+			volatile uint8_t *_dat_ireg;
+		#else
+		#ifdef ESP8266
+			int _clk_pin;
+			int _cmd_pin;
+			int _att_pin;
+			int _dat_pin;
+		#else
+			uint8_t maskToBitNum(uint8_t);
+			uint16_t _clk_mask; 
+			volatile uint32_t *_clk_lport_set;
+			volatile uint32_t *_clk_lport_clr;
+			uint16_t _cmd_mask; 
+			volatile uint32_t *_cmd_lport_set;
+			volatile uint32_t *_cmd_lport_clr;
+			uint16_t _att_mask; 
+			volatile uint32_t *_att_lport_set;
+			volatile uint32_t *_att_lport_clr;
+			uint16_t _dat_mask; 
+			volatile uint32_t *_dat_lport;
+		#endif
+		#endif
 	
-    unsigned long last_read;
-    byte read_delay;
-    byte controller_type;
-    boolean en_Rumble;
-    boolean en_Pressures;
+		unsigned long last_read;
+		byte read_delay;
+		byte controller_type;
+		boolean en_Rumble;
+		boolean en_Pressures;
 };
 
 #endif

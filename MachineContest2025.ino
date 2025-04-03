@@ -8,14 +8,14 @@
 PS2X ps2x; // create PS2 Controller Class
 
 void setup() {
-  Serial.begin(9600);
-  ps2x.config_gamepad(PS2X_CLK_PIN, PS2X_CMD_PIN, PS2X_CS_PIN, PS2X_DAT_PIN, pressures, rumble);
-  Serial.println("Setup Completed!");
+	InitPins();
+	ps2x.config_gamepad(PS2X_CLK_PIN, PS2X_CMD_PIN, PS2X_CS_PIN, PS2X_DAT_PIN, pressures, rumble);
 }
 
 void loop() {
-  ps2x.read_gamepad(); // read the gamepad values
-  
-  MoveWheels(ps2x);
-  delay(20);
+	ps2x.read_gamepad(); // read the gamepad values
+	
+	MoveWheels(ps2x); // move the mecanum wheels based on the controller input
+
+	delay(20); // small delay
 }
