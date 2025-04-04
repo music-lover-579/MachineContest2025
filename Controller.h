@@ -10,5 +10,7 @@
 #include "Movements.h"
 
 void MoveWheels(PS2X& ps2x); // Move the four mecanum wheels based on the controller input
+void MoveServo(PS2X& ps2x); // Move the servos based on the controller input
+void MoveStepper(PS2X& ps2x); // Move the stepper motor based on the controller input
 
 #endif // _CONTROLLER_H_

@@ -7,10 +7,10 @@
 
 #include "Globals.h"
 
-// Motor speed setting, range -128 ~ 127
-void SetMotorSpeedLF(const byte& speed);
-void SetMotorSpeedRF(const byte& speed);
-void SetMotorSpeedLB(const byte& speed);
-void SetMotorSpeedRB(const byte& speed);
+// Basic movements
+void SetMotorSpeed(const MotorSpeed& speed); // Motor speed setting, range -128 ~ 127
+void IncrementServoAngle(const byte& status); // Increment the servo angle based on the button status
+void SetServoAngle(const ServoAngle& angle); // Set the servo angle
+void MoveStepper(bool direction); // Move the stepper motor in the specified direction
 
 #endif // _MOVEMENTS_H_

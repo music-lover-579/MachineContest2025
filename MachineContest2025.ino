@@ -16,6 +16,8 @@ void loop() {
 	ps2x.read_gamepad(); // read the gamepad values
 	
 	MoveWheels(ps2x); // move the mecanum wheels based on the controller input
-
+	MoveServo(ps2x); // move the servos based on the controller input
+	MoveStepper(ps2x); // move the stepper motor based on the controller input
+	
 	delay(20); // small delay
 }
