@@ -6,13 +6,15 @@ void MoveWheels(PS2X& ps2x) {
 	byte leftY = ps2x.Analog(PSS_LY) ^ 0x80; // center the joystick
 	byte rightX = ps2x.Analog(PSS_RX) ^ 0x80; // center the joystick
 
+	// TODO: change this value according to test results
+	const float k = 0.2f;
+
 	// set the speed for each mecanum wheel
-	// TODO: Implement the speed calculation based on the joystick values
 	SetMotorSpeed(MotorSpeed{
-		.LF = byte(leftY + leftX + rightX),
-		.RF = byte(leftY - leftX - rightX),
-		.LB = byte(leftY - leftX + rightX),
-		.RB = byte(leftY + leftX - rightX)
+		.LF = (byte)((leftY - leftX - k * rightX) / (k + 2.0f)),
+		.RF = (byte)((leftY + leftX + k * rightX) / (k + 2.0f)),
+		.LB = (byte)((leftY + leftX - k * rightX) / (k + 2.0f)),
+		.RB = (byte)((leftY - leftX + k * rightX) / (k + 2.0f))
 	});
 }
 

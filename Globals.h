@@ -8,6 +8,10 @@
 #include <Arduino.h>
 #include <Servo.h>
 
+// 1-bit data types
+typedef unsigned char ubyte;
+typedef signed char byte;
+
 // PS2X controller pins
 #define PS2X_CLK_PIN  46
 #define PS2X_CS_PIN  48
@@ -87,9 +91,9 @@ struct MotorSpeed {
 
 // Servo angle structure
 struct ServoAngle {
-	byte BOTTOM;
-	byte MIDDLE;
-	byte PAW;
+	ubyte BOTTOM;
+	ubyte MIDDLE;
+	ubyte PAW;
 };
 
 // Arm structure
