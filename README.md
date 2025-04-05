@@ -10,3 +10,4 @@ Team: Deep Sleepers
 - [x] Implement mecanum wheel speed calculation
 - [ ] Adjust parameters with actual machine
 - [ ] Add more complex integrated movements
+- [ ] Use Bluetooth and phone program to control the machine instead of PSX2 handle

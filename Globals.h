@@ -9,8 +9,8 @@
 #include <Servo.h>
 
 // 1-bit data types
-typedef unsigned char ubyte;
-typedef signed char byte;
+typedef unsigned char UByte; // 1-bit unsigned integer, 0 to 255
+typedef signed char Byte; // 1-bit signed integer, -128 to 127
 
 // PS2X controller pins
 #define PS2X_CLK_PIN  46
@@ -83,17 +83,17 @@ typedef signed char byte;
 
 // Motor speed structure
 struct MotorSpeed {
-  byte LF;
-  byte RF;
-  byte LB;
-  byte RB;
+  Byte LF;
+  Byte RF;
+  Byte LB;
+  Byte RB;
 };
 
 // Servo angle structure
 struct ServoAngle {
-	ubyte BOTTOM;
-	ubyte MIDDLE;
-	ubyte PAW;
+	UByte BOTTOM;
+	UByte MIDDLE;
+	UByte PAW;
 };
 
 // Arm structure

@@ -2,25 +2,25 @@
 
 void MoveWheels(PS2X& ps2x) {
 	// read the joystick values
-	byte leftX = ps2x.Analog(PSS_LX) ^ 0x80; // center the joystick
-	byte leftY = ps2x.Analog(PSS_LY) ^ 0x80; // center the joystick
-	byte rightX = ps2x.Analog(PSS_RX) ^ 0x80; // center the joystick
+	Byte leftX = ps2x.Analog(PSS_LX) ^ 0x80; // center the joystick
+	Byte leftY = ps2x.Analog(PSS_LY) ^ 0x80; // center the joystick
+	Byte rightX = ps2x.Analog(PSS_RX) ^ 0x80; // center the joystick
 
 	// TODO: change this value according to test results
 	const float k = 0.2f;
 
 	// set the speed for each mecanum wheel
 	SetMotorSpeed(MotorSpeed{
-		.LF = (byte)((leftY - leftX - k * rightX) / (k + 2.0f)),
-		.RF = (byte)((leftY + leftX + k * rightX) / (k + 2.0f)),
-		.LB = (byte)((leftY + leftX - k * rightX) / (k + 2.0f)),
-		.RB = (byte)((leftY - leftX + k * rightX) / (k + 2.0f))
+		.LF = (Byte)((leftY - leftX - k * rightX) / (k + 2.0f)),
+		.RF = (Byte)((leftY + leftX + k * rightX) / (k + 2.0f)),
+		.LB = (Byte)((leftY + leftX - k * rightX) / (k + 2.0f)),
+		.RB = (Byte)((leftY - leftX + k * rightX) / (k + 2.0f))
 	});
 }
 
 void MoveArm(PS2X& ps2x, Arm& arm) {
 	// read the button values
-	byte status = 0;
+	Byte status = 0;
 	if (ps2x.ButtonPressed(BOTTOM_SERVO_DOWN)) status |= BOTTOM_SERVO_CHANGE;
 	else if (ps2x.ButtonPressed(BOTTOM_SERVO_UP)) status |= BOTTOM_SERVO_CHANGE | BOTTOM_SERVO_DIRECTION_IS_UP;
 	if (ps2x.ButtonPressed(MIDDLE_SERVO_DOWN)) status |= MIDDLE_SERVO_CHANGE;

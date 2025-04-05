@@ -9,7 +9,7 @@ void SetMotorSpeed(const MotorSpeed& speed) {
 		digitalWrite(LF_IN1_PIN, LOW);
 		digitalWrite(LF_IN2_PIN, HIGH);
 	}
-	analogWrite(LF_PWM_PIN, (speed.LF & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(LF_PWM_PIN, (UByte)(speed.LF & 0x7F) << 1); // Mask the speed to 8 bits
 
 	if (speed.RF & 0x80) { // speed is negative
 		digitalWrite(RF_IN1_PIN, HIGH);
@@ -18,7 +18,7 @@ void SetMotorSpeed(const MotorSpeed& speed) {
 		digitalWrite(RF_IN1_PIN, LOW);
 		digitalWrite(RF_IN2_PIN, HIGH);
 	}
-	analogWrite(RF_PWM_PIN, (speed.RF & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(RF_PWM_PIN, (UByte)(speed.RF & 0x7F) << 1); // Mask the speed to 8 bits
 
 	if (speed.LB & 0x80) { // speed is negative
 		digitalWrite(LB_IN1_PIN, HIGH);
@@ -27,7 +27,7 @@ void SetMotorSpeed(const MotorSpeed& speed) {
 		digitalWrite(LB_IN1_PIN, LOW);
 		digitalWrite(LB_IN2_PIN, HIGH);
 	}
-	analogWrite(LB_PWM_PIN, (speed.LB & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(LB_PWM_PIN, (UByte)(speed.LB & 0x7F) << 1); // Mask the speed to 8 bits
 
 	if (speed.RB & 0x80) { // speed is negative
 		digitalWrite(RB_IN1_PIN, HIGH);
@@ -36,10 +36,10 @@ void SetMotorSpeed(const MotorSpeed& speed) {
 		digitalWrite(RB_IN1_PIN, LOW);
 		digitalWrite(RB_IN2_PIN, HIGH);
 	}
-	analogWrite(RB_PWM_PIN, (speed.RB & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(RB_PWM_PIN, (UByte)(speed.RB & 0x7F) << 1); // Mask the speed to 8 bits
 }
 
-void IncrementServoAngle(Arm& arm, const ubyte& status) {
+void IncrementServoAngle(Arm& arm, const UByte& status) {
 	arm.bottom.write(arm.bottom.read() + ((status & BOTTOM_SERVO_CHANGE) ? (status & BOTTOM_SERVO_DIRECTION_IS_UP ? 1 : -1) : 0));
 	arm.middle.write(arm.middle.read() + ((status & MIDDLE_SERVO_CHANGE) ? (status & MIDDLE_SERVO_DIRECTION_IS_UP ? 1 : -1) : 0));
 	arm.paw.write(arm.paw.read() + ((status & PAW_SERVO_CHANGE) ? (status & PAW_SERVO_DIRECTION_IS_OPEN ? 1 : -1) : 0));
