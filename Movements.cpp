@@ -39,12 +39,16 @@ void SetMotorSpeed(const MotorSpeed& speed) {
 	analogWrite(RB_PWM_PIN, (speed.RB & 0x7F) << 1); // Mask the speed to 8 bits
 }
 
-void IncrementServoAngle(const byte& status) {
-	
+void IncrementServoAngle(Arm& arm, const byte& status) {
+	arm.bottom.write(arm.bottom.read() + ((status & BOTTOM_SERVO_CHANGE) ? (status & BOTTOM_SERVO_DIRECTION_IS_UP ? 1 : -1) : 0));
+	arm.middle.write(arm.middle.read() + ((status & MIDDLE_SERVO_CHANGE) ? (status & MIDDLE_SERVO_DIRECTION_IS_UP ? 1 : -1) : 0));
+	arm.paw.write(arm.paw.read() + ((status & PAW_SERVO_CHANGE) ? (status & PAW_SERVO_DIRECTION_IS_OPEN ? 1 : -1) : 0));
 }
 
-void SetServoAngle(const ServoAngle& angle) {
-	
+void SetServoAngle(Arm& arm, const ServoAngle& angle) {
+	arm.bottom.write(angle.BOTTOM);
+	arm.middle.write(angle.MIDDLE);
+	arm.paw.write(angle.PAW);
 }
 
 void MoveStepper(bool direction) {

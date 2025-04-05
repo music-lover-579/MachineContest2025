@@ -7,6 +7,7 @@ void MoveWheels(PS2X& ps2x) {
 	byte rightX = ps2x.Analog(PSS_RX) ^ 0x80; // center the joystick
 
 	// set the speed for each mecanum wheel
+	// TODO: Implement the speed calculation based on the joystick values
 	SetMotorSpeed(MotorSpeed{
 		.LF = byte(leftY + leftX + rightX),
 		.RF = byte(leftY - leftX - rightX),
@@ -15,7 +16,7 @@ void MoveWheels(PS2X& ps2x) {
 	});
 }
 
-void MoveServo(PS2X& ps2x) {
+void MoveArm(PS2X& ps2x, Arm& arm) {
 	// read the button values
 	byte status = 0;
 	if (ps2x.ButtonPressed(BOTTOM_SERVO_DOWN)) status |= BOTTOM_SERVO_CHANGE;
@@ -26,11 +27,15 @@ void MoveServo(PS2X& ps2x) {
 	else if (ps2x.ButtonPressed(PAW_SERVO_OPEN)) status |= PAW_SERVO_CHANGE | PAW_SERVO_DIRECTION_IS_OPEN;
 
 	// increment the servo angle based on the button status
-	IncrementServoAngle(status);
+	IncrementServoAngle(arm, status);
 }
 
 void MoveStepper(PS2X& ps2x) {
 	// read the button values
 	if (ps2x.ButtonPressed(STEPPER_UP)) MoveStepper(UP);
 	else if (ps2x.ButtonPressed(STEPPER_DOWN)) MoveStepper(DOWN);
+}
+
+void CompleteAction(PS2X& ps2x, Arm& arm) {
+	// TODO: Implement the complete action logic
 }
