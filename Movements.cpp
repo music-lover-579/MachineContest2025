@@ -3,40 +3,40 @@
 void SetMotorSpeed(const MotorSpeed& speed) {
 	// Set the speed of each motor
 	if (speed.LF & 0x80) { // speed is negative
-		digitalWrite(LF_IN1_PIN, HIGH);
-		digitalWrite(LF_IN2_PIN, LOW);
-	} else {
 		digitalWrite(LF_IN1_PIN, LOW);
 		digitalWrite(LF_IN2_PIN, HIGH);
+	} else {
+		digitalWrite(LF_IN1_PIN, HIGH);
+		digitalWrite(LF_IN2_PIN, LOW);
 	}
-	analogWrite(LF_PWM_PIN, (UByte)(speed.LF & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(LF_PWM_PIN, abs(speed.LF) * 2); // Mask the speed to 8 bits
 
 	if (speed.RF & 0x80) { // speed is negative
-		digitalWrite(RF_IN1_PIN, HIGH);
-		digitalWrite(RF_IN2_PIN, LOW);
-	} else {
 		digitalWrite(RF_IN1_PIN, LOW);
 		digitalWrite(RF_IN2_PIN, HIGH);
+	} else {
+		digitalWrite(RF_IN1_PIN, HIGH);
+		digitalWrite(RF_IN2_PIN, LOW);
 	}
-	analogWrite(RF_PWM_PIN, (UByte)(speed.RF & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(RF_PWM_PIN, abs(speed.RF) * 2); // Mask the speed to 8 bits
 
 	if (speed.LB & 0x80) { // speed is negative
-		digitalWrite(LB_IN1_PIN, HIGH);
-		digitalWrite(LB_IN2_PIN, LOW);
-	} else {
 		digitalWrite(LB_IN1_PIN, LOW);
 		digitalWrite(LB_IN2_PIN, HIGH);
+	} else {
+		digitalWrite(LB_IN1_PIN, HIGH);
+		digitalWrite(LB_IN2_PIN, LOW);
 	}
-	analogWrite(LB_PWM_PIN, (UByte)(speed.LB & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(LB_PWM_PIN, abs(speed.LB) * 2); // Mask the speed to 8 bits
 
 	if (speed.RB & 0x80) { // speed is negative
-		digitalWrite(RB_IN1_PIN, HIGH);
-		digitalWrite(RB_IN2_PIN, LOW);
-	} else {
 		digitalWrite(RB_IN1_PIN, LOW);
 		digitalWrite(RB_IN2_PIN, HIGH);
+	} else {
+		digitalWrite(RB_IN1_PIN, HIGH);
+		digitalWrite(RB_IN2_PIN, LOW);
 	}
-	analogWrite(RB_PWM_PIN, (UByte)(speed.RB & 0x7F) << 1); // Mask the speed to 8 bits
+	analogWrite(RB_PWM_PIN, abs(speed.RB) * 2); // Mask the speed to 8 bits
 }
 
 void IncrementServoAngle(Arm& arm, const UByte& status) {

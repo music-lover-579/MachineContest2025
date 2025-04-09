@@ -20,7 +20,9 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 #define pressures false
 #define rumble false
 
-// PS2X controller buttons mapping
+// PS2X controller
+#define DEADZONE 10
+
 #define BOTTOM_SERVO_DOWN PSB_PAD_DOWN
 #define BOTTOM_SERVO_UP PSB_PAD_UP
 #define MIDDLE_SERVO_DOWN PSB_PAD_RIGHT
@@ -83,17 +85,17 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 
 // Motor speed structure
 struct MotorSpeed {
-  Byte LF;
-  Byte RF;
-  Byte LB;
-  Byte RB;
+  int LF;
+  int RF;
+  int LB;
+  int RB;
 };
 
 // Servo angle structure
 struct ServoAngle {
-	UByte BOTTOM;
-	UByte MIDDLE;
-	UByte PAW;
+	int BOTTOM;
+	int MIDDLE;
+	int PAW;
 };
 
 // Arm structure

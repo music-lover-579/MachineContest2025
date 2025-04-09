@@ -1,21 +1,37 @@
 #include "Controller.h"
 
 void MoveWheels(PS2X& ps2x) {
-	// read the joystick values
-	Byte leftX = ps2x.Analog(PSS_LX) ^ 0x80; // center the joystick
-	Byte leftY = ps2x.Analog(PSS_LY) ^ 0x80; // center the joystick
-	Byte rightX = ps2x.Analog(PSS_RX) ^ 0x80; // center the joystick
+	// Read joystick values and center them to -128 to 127 range
+	int leftX = ps2x.Analog(PSS_LX) - 127;
+	int leftY = -ps2x.Analog(PSS_LY) + 128; // Invert Y
+	int rightX = ps2x.Analog(PSS_RX) - 127;
 
-	// TODO: change this value according to test results
-	const float k = 0.2f;
+	if (leftX == 128) leftX = 127;
+	if (leftY == 128) leftY = 127;
+	if (rightX == 128) rightX = 127;
 
-	// set the speed for each mecanum wheel
-	SetMotorSpeed(MotorSpeed{
-		.LF = (Byte)(int)(((int)leftY / (k + 2.0f) - (int)leftX / (k + 2.0f) - k * rightX / (k + 2.0f))),
-		.RF = (Byte)(int)(((int)leftY / (k + 2.0f) + (int)leftX / (k + 2.0f) + k * rightX / (k + 2.0f))),
-		.LB = (Byte)(int)(((int)leftY / (k + 2.0f) + (int)leftX / (k + 2.0f) - k * rightX / (k + 2.0f))),
-		.RB = (Byte)(int)(((int)leftY / (k + 2.0f) - (int)leftX / (k + 2.0f) + k * rightX / (k + 2.0f)))
-	});
+	if (abs(rightX) > DEADZONE) { // rotation
+		SetMotorSpeed(MotorSpeed{
+			.LF = rightX,
+			.RF = -rightX,
+			.LB = rightX,
+			.RB = -rightX
+		});
+	} else if (abs(leftX) > DEADZONE || abs(leftY) > DEADZONE) { // translation
+		SetMotorSpeed(MotorSpeed{
+			.LF = leftY / 2 + leftX / 2,
+			.RF = leftY / 2 - leftX / 2,
+			.LB = leftY / 2 - leftX / 2,
+			.RB = leftY / 2 + leftX / 2
+		});
+	} else { // stop
+		SetMotorSpeed(MotorSpeed{
+			.LF = 0,
+			.RF = 0,
+			.LB = 0,
+			.RB = 0
+		});
+	}
 }
 
 void MoveArm(PS2X& ps2x, Arm& arm) {
