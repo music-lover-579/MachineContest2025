@@ -11,10 +11,10 @@ void MoveWheels(PS2X& ps2x) {
 
 	// set the speed for each mecanum wheel
 	SetMotorSpeed(MotorSpeed{
-		.LF = (Byte)((leftY - leftX - k * rightX) / (k + 2.0f)),
-		.RF = (Byte)((leftY + leftX + k * rightX) / (k + 2.0f)),
-		.LB = (Byte)((leftY + leftX - k * rightX) / (k + 2.0f)),
-		.RB = (Byte)((leftY - leftX + k * rightX) / (k + 2.0f))
+		.LF = (Byte)(int)(((int)leftY / (k + 2.0f) - (int)leftX / (k + 2.0f) - k * rightX / (k + 2.0f))),
+		.RF = (Byte)(int)(((int)leftY / (k + 2.0f) + (int)leftX / (k + 2.0f) + k * rightX / (k + 2.0f))),
+		.LB = (Byte)(int)(((int)leftY / (k + 2.0f) + (int)leftX / (k + 2.0f) - k * rightX / (k + 2.0f))),
+		.RB = (Byte)(int)(((int)leftY / (k + 2.0f) - (int)leftX / (k + 2.0f) + k * rightX / (k + 2.0f)))
 	});
 }
 
