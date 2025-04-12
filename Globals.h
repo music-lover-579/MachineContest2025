@@ -27,8 +27,8 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 #define BOTTOM_SERVO_UP PSB_PAD_UP
 #define MIDDLE_SERVO_DOWN PSB_PAD_RIGHT
 #define MIDDLE_SERVO_UP PSB_PAD_LEFT
-#define PAW_SERVO_CLOSE PSB_PINK
-#define PAW_SERVO_OPEN PSB_RED
+#define PAW_SERVO_OPEN PSB_PINK
+#define PAW_SERVO_CLOSE PSB_RED
 #define STEPPER_UP PSB_GREEN
 #define STEPPER_DOWN PSB_BLUE
 // TODO: Add more buttons for advanced movements
@@ -54,15 +54,15 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 
 // Servo angles
 // TODO: Replace with actual values
-#define BOTTOM_SERVO_MIN 10
-#define BOTTOM_SERVO_MAX 130
-#define MIDDLE_SERVO_MIN 30
-#define MIDDLE_SERVO_MAX 130
-#define PAW_SERVO_MIN 0
-#define PAW_SERVO_MAX 180
-#define BOTTOM_SERVO_INITIAL 90
-#define MIDDLE_SERVO_INITIAL 90
-#define PAW_SERVO_MIN_INITIAL 0
+#define BOTTOM_SERVO_MIN 0
+#define BOTTOM_SERVO_MAX 200
+#define MIDDLE_SERVO_MIN 0
+#define MIDDLE_SERVO_MAX 200
+#define PAW_SERVO_MIN 105
+#define PAW_SERVO_MAX 175
+#define BOTTOM_SERVO_INITIAL 100
+#define MIDDLE_SERVO_INITIAL 100
+#define PAW_SERVO_MIN_INITIAL 105
 
 // Servo status bitmask
 #define BOTTOM_SERVO_CHANGE 0x01
@@ -82,6 +82,8 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 #define STEPPER_STEP_DELAY 500 // Delay between steps in microseconds
 #define UP true
 #define DOWN false
+
+#define TRUNCATE(x, MIN, MAX) ((x) < (MIN) ? (MIN) : ((x) > (MAX) ? (MAX) : (x))) // Truncate a value to a range
 
 // Motor speed structure
 struct MotorSpeed {

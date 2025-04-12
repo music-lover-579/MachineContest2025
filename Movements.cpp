@@ -40,15 +40,25 @@ void SetMotorSpeed(const MotorSpeed& speed) {
 }
 
 void IncrementServoAngle(Arm& arm, const UByte& status) {
-	arm.bottom.write(arm.bottom.read() + ((status & BOTTOM_SERVO_CHANGE) ? (status & BOTTOM_SERVO_DIRECTION_IS_UP ? 1 : -1) : 0));
-	arm.middle.write(arm.middle.read() + ((status & MIDDLE_SERVO_CHANGE) ? (status & MIDDLE_SERVO_DIRECTION_IS_UP ? 1 : -1) : 0));
-	arm.paw.write(arm.paw.read() + ((status & PAW_SERVO_CHANGE) ? (status & PAW_SERVO_DIRECTION_IS_OPEN ? 1 : -1) : 0));
+	int angle;
+	if (status & BOTTOM_SERVO_CHANGE) {
+		angle = arm.bottom.read() + ((status & BOTTOM_SERVO_DIRECTION_IS_UP) ? -1 : 1);
+		arm.bottom.write(TRUNCATE(angle, BOTTOM_SERVO_MIN, BOTTOM_SERVO_MAX));
+	}
+	if (status & MIDDLE_SERVO_CHANGE) {
+		angle = arm.middle.read() + ((status & MIDDLE_SERVO_DIRECTION_IS_UP) ? 1 : -1);
+		arm.middle.write(TRUNCATE(angle, MIDDLE_SERVO_MIN, MIDDLE_SERVO_MAX));
+	}
+	if (status & PAW_SERVO_CHANGE) {
+		angle = arm.paw.read() + ((status & PAW_SERVO_DIRECTION_IS_OPEN) ? 5 : -1);
+		arm.paw.write(TRUNCATE(angle, PAW_SERVO_MIN, PAW_SERVO_MAX));
+	}
 }
 
 void SetServoAngle(Arm& arm, const ServoAngle& angle) {
-	arm.bottom.write(angle.BOTTOM);
-	arm.middle.write(angle.MIDDLE);
-	arm.paw.writeMicroseconds(angle.PAW);
+	arm.bottom.write(TRUNCATE(angle.BOTTOM, BOTTOM_SERVO_MIN, BOTTOM_SERVO_MAX));
+	arm.middle.write(TRUNCATE(angle.MIDDLE, MIDDLE_SERVO_MIN, MIDDLE_SERVO_MAX));
+	arm.paw.write(TRUNCATE(angle.PAW, PAW_SERVO_MIN, PAW_SERVO_MAX));
 }
 
 void MoveStepper(bool direction) {
