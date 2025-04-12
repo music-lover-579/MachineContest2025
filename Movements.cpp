@@ -48,24 +48,19 @@ void IncrementServoAngle(Arm& arm, const UByte& status) {
 void SetServoAngle(Arm& arm, const ServoAngle& angle) {
 	arm.bottom.write(angle.BOTTOM);
 	arm.middle.write(angle.MIDDLE);
-	arm.paw.write(angle.PAW);
+	arm.paw.writeMicroseconds(angle.PAW);
 }
 
 void MoveStepper(bool direction) {
 	// Set the direction of the stepper motor
 	digitalWrite(STEPPER_DIRECTION_PIN, direction == UP ? HIGH : LOW);
 	
-	// Enable the stepper motor
-	digitalWrite(STEPPER_ENABLE_PIN, HIGH);
-	
 	// Step the motor
-	for (int i = 0; i < STEPPER_STEPS_PER_REVOLUTION; i++) {
+	for (int i = 0; i < STEPPER_STEPS_PER_REVOLUTION; ++i) {
 		digitalWrite(STEPPER_STEP_PIN, HIGH);
 		delayMicroseconds(STEPPER_STEP_DELAY); // Adjust the delay for speed
 		digitalWrite(STEPPER_STEP_PIN, LOW);
 		delayMicroseconds(STEPPER_STEP_DELAY); // Adjust the delay for speed
 	}
 	
-	// Disable the stepper motor
-	digitalWrite(STEPPER_ENABLE_PIN, LOW);
 }

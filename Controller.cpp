@@ -37,12 +37,12 @@ void MoveWheels(PS2X& ps2x) {
 void MoveArm(PS2X& ps2x, Arm& arm) {
 	// read the button values
 	Byte status = 0;
-	if (ps2x.ButtonPressed(BOTTOM_SERVO_DOWN)) status |= BOTTOM_SERVO_CHANGE;
-	else if (ps2x.ButtonPressed(BOTTOM_SERVO_UP)) status |= BOTTOM_SERVO_CHANGE | BOTTOM_SERVO_DIRECTION_IS_UP;
-	if (ps2x.ButtonPressed(MIDDLE_SERVO_DOWN)) status |= MIDDLE_SERVO_CHANGE;
-	else if (ps2x.ButtonPressed(MIDDLE_SERVO_UP)) status |= MIDDLE_SERVO_CHANGE | MIDDLE_SERVO_DIRECTION_IS_UP;
-	if (ps2x.ButtonPressed(PAW_SERVO_CLOSE)) status |= PAW_SERVO_CHANGE;
-	else if (ps2x.ButtonPressed(PAW_SERVO_OPEN)) status |= PAW_SERVO_CHANGE | PAW_SERVO_DIRECTION_IS_OPEN;
+	if (ps2x.Button(BOTTOM_SERVO_DOWN)) status |= BOTTOM_SERVO_CHANGE;
+	else if (ps2x.Button(BOTTOM_SERVO_UP)) status |= BOTTOM_SERVO_CHANGE | BOTTOM_SERVO_DIRECTION_IS_UP;
+	if (ps2x.Button(MIDDLE_SERVO_DOWN)) status |= MIDDLE_SERVO_CHANGE;
+	else if (ps2x.Button(MIDDLE_SERVO_UP)) status |= MIDDLE_SERVO_CHANGE | MIDDLE_SERVO_DIRECTION_IS_UP;
+	if (ps2x.Button(PAW_SERVO_CLOSE)) status |= PAW_SERVO_CHANGE;
+	else if (ps2x.Button(PAW_SERVO_OPEN)) status |= PAW_SERVO_CHANGE | PAW_SERVO_DIRECTION_IS_OPEN;
 
 	// increment the servo angle based on the button status
 	IncrementServoAngle(arm, status);
@@ -50,8 +50,8 @@ void MoveArm(PS2X& ps2x, Arm& arm) {
 
 void MoveStepper(PS2X& ps2x) {
 	// read the button values
-	if (ps2x.ButtonPressed(STEPPER_UP)) MoveStepper(UP);
-	else if (ps2x.ButtonPressed(STEPPER_DOWN)) MoveStepper(DOWN);
+	if (ps2x.Button(STEPPER_UP)) MoveStepper(UP);
+	else if (ps2x.Button(STEPPER_DOWN)) MoveStepper(DOWN);
 }
 
 void CompleteAction(PS2X& ps2x, Arm& arm) {

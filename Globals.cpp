@@ -29,7 +29,7 @@ void InitWheels() {
 void InitArm(Arm& arm) {
 	arm.bottom.attach(BOTTOM_SERVO_PIN, BOTTOM_SERVO_MIN, BOTTOM_SERVO_MAX);
 	arm.middle.attach(MIDDLE_SERVO_PIN, MIDDLE_SERVO_MIN, MIDDLE_SERVO_MAX);
-	arm.paw.attach(PAW_SERVO_PIN, PAW_SERVO_MIN, PAW_SERVO_MAX);
+	arm.paw.attach(PAW_SERVO_PIN);
 
 	// Set initial angles
 	arm.bottom.write(BOTTOM_SERVO_INITIAL);

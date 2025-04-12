@@ -78,8 +78,8 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 #define STEPPER_ENABLE_PIN 26
 
 // Stepper motor steps
-#define STEPPER_STEPS_PER_REVOLUTION 36000 // Number of steps per revolution
-#define STEPPER_STEP_DELAY 1000 // Delay between steps in microseconds
+#define STEPPER_STEPS_PER_REVOLUTION 200 // Number of steps per revolution
+#define STEPPER_STEP_DELAY 500 // Delay between steps in microseconds
 #define UP true
 #define DOWN false
 
