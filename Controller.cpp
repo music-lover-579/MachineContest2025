@@ -19,10 +19,10 @@ void MoveWheels(PS2X& ps2x) {
 		});
 	} else if (abs(leftX) > DEADZONE || abs(leftY) > DEADZONE) { // translation
 		SetMotorSpeed(MotorSpeed{
-			.LF = leftY / 2 + leftX / 2,
-			.RF = leftY / 2 - leftX / 2,
-			.LB = leftY / 2 - leftX / 2,
-			.RB = leftY / 2 + leftX / 2
+			.LF = TRUNCATE(leftY + leftX, -127, 127),
+			.RF = TRUNCATE(leftY - leftX, -127, 127),
+			.LB = TRUNCATE(leftY - leftX, -127, 127),
+			.RB = TRUNCATE(leftY + leftX, -127, 127)
 		});
 	} else { // stop
 		SetMotorSpeed(MotorSpeed{
@@ -41,7 +41,7 @@ void MoveArm(PS2X& ps2x, Arm& arm) {
 	else if (ps2x.Button(BOTTOM_SERVO_UP)) status |= BOTTOM_SERVO_CHANGE | BOTTOM_SERVO_DIRECTION_IS_UP;
 	if (ps2x.Button(MIDDLE_SERVO_DOWN)) status |= MIDDLE_SERVO_CHANGE;
 	else if (ps2x.Button(MIDDLE_SERVO_UP)) status |= MIDDLE_SERVO_CHANGE | MIDDLE_SERVO_DIRECTION_IS_UP;
-	if (ps2x.ButtonPressed(PAW_SERVO_CLOSE)) status |= PAW_SERVO_CHANGE;
+	if (ps2x.Button(PAW_SERVO_CLOSE)) status |= PAW_SERVO_CHANGE;
 	else if (ps2x.Button(PAW_SERVO_OPEN)) status |= PAW_SERVO_CHANGE | PAW_SERVO_DIRECTION_IS_OPEN;
 
 	// increment the servo angle based on the button status
