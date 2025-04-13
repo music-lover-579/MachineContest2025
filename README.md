@@ -86,7 +86,6 @@ This project controls a multifunctional robot with mecanum wheels, servo-control
   
   ```cpp
   // Basic movements
-  
   void SetMotorSpeed(const MotorSpeed& speed); // Motor speed setting, range -128 ~ 127
   void IncrementServoAngle(Arm& arm, const UByte& status); // Increment the servo angle based on the button status
   void SetServoAngle(Arm& arm, const ServoAngle& angle); // Set the servo angle
