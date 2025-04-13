@@ -20,7 +20,7 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 #define pressures false
 #define rumble false
 
-// PS2X controller
+// PS2X controller buttons
 #define DEADZONE 10
 
 #define BOTTOM_SERVO_DOWN PSB_PAD_DOWN
@@ -53,7 +53,6 @@ typedef signed char Byte; // 1-bit signed integer, -128 to 127
 #define PAW_SERVO_PIN 10
 
 // Servo angles
-// TODO: Replace with actual values
 #define BOTTOM_SERVO_MIN 0
 #define BOTTOM_SERVO_MAX 200
 #define MIDDLE_SERVO_MIN 0

@@ -27,6 +27,7 @@ void InitWheels() {
 }
 
 void InitArm(Arm& arm) {
+	// Attach the servos to the specified pins
 	arm.bottom.attach(BOTTOM_SERVO_PIN, BOTTOM_SERVO_MIN, BOTTOM_SERVO_MAX);
 	arm.middle.attach(MIDDLE_SERVO_PIN, MIDDLE_SERVO_MIN, MIDDLE_SERVO_MAX);
 	arm.paw.attach(PAW_SERVO_PIN, PAW_SERVO_MIN, PAW_SERVO_MAX);
@@ -43,5 +44,6 @@ void InitStepper() {
 	pinMode(STEPPER_STEP_PIN, OUTPUT);
 	pinMode(STEPPER_ENABLE_PIN, OUTPUT);
 
-	digitalWrite(STEPPER_ENABLE_PIN, LOW); // Enable the stepper motor
+	// Enable the stepper motor
+	digitalWrite(STEPPER_ENABLE_PIN, LOW);
 }
